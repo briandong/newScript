@@ -28,11 +28,28 @@ system "open", path
 
 # unit test script
 test_dir = dir+"/test"
-Dir.mkdir test_dir
+Dir.mkdir test_dir unless Dir.exist? test_dir
 
 test_path = test_dir+"/tc_"+path_list[-1]
 File.open(test_path, "w") do |f|
-	f.puts "#!/usr/bin/env ruby -w"
+	f.puts "require 'test/unit'"
+	f.puts "\nclass UserTest < Test::Unit::TestCase"
+	f.puts "    def test_speak"
+	f.puts "        u = User.new"
+	f.puts "        assert_equal 'HelloWorld!', u.speak"
+	f.puts "    end #test_speak"
+	f.puts "end #class"
 end
 
 # Rakefile
+rake_path = dir+"/Rakefile"
+File.open(rake_path, "w") do |f|
+	f.puts "Rake::RDocTask.new do |t|"
+	f.puts "    t.rdoc_files.include '*.rb'"
+	f.puts "    t.options << '--diagram'"
+	f.puts "end"
+	f.puts "\nRake::TestTask.new do |t|"
+	f.puts "    t.test_files = FileList['test/tc_*.rb']"
+	f.puts "end"
+end
+
