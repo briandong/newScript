@@ -15,7 +15,7 @@ File.open(path, "w") do |f|
 	f.puts "    attr_accessor :name"
 	f.puts "\n    # What does the user say"
 	f.puts "    def speak"
-	f.puts "        reture 'HelloWorld!'"
+	f.puts "        return 'HelloWorld!'"
 	f.puts "    end"
 	f.puts "\nend #class User"
 	f.puts "\n# Only run the following code when this file is the main file being run"
@@ -33,6 +33,7 @@ Dir.mkdir test_dir unless Dir.exist? test_dir
 test_path = test_dir+"/tc_"+path_list[-1]
 File.open(test_path, "w") do |f|
 	f.puts "require 'test/unit'"
+	f.puts "require \'./#{path_list[-1]}\'"
 	f.puts "\nclass UserTest < Test::Unit::TestCase"
 	f.puts "    def test_speak"
 	f.puts "        u = User.new"
@@ -44,7 +45,9 @@ end
 # Rakefile
 rake_path = dir+"/Rakefile"
 File.open(rake_path, "w") do |f|
-	f.puts "Rake::RDocTask.new do |t|"
+	f.puts "require 'rdoc/task'"
+	f.puts "require 'rake/testtask'"
+	f.puts "\nRake::RDocTask.new do |t|"
 	f.puts "    t.rdoc_files.include '*.rb'"
 	f.puts "    t.options << '--diagram'"
 	f.puts "end"
