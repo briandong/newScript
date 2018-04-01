@@ -33,7 +33,7 @@ Dir.mkdir test_dir unless Dir.exist? test_dir
 test_path = test_dir+"/tc_"+path_list[-1]
 File.open(test_path, "w") do |f|
 	f.puts "require 'test/unit'"
-	f.puts "require \'./#{path_list[-1]}\'"
+	f.puts "require_relative \'../#{path_list[-1]}\'"
 	f.puts "\nclass UserTest < Test::Unit::TestCase"
 	f.puts "    def test_speak"
 	f.puts "        u = User.new"
