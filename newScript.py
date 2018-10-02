@@ -60,7 +60,7 @@ import {}
                 f.write(header)
                 f.write(context_body)
 
-            # Create test
+            # Create tests
             test_body = """import unittest
 
 from context import {}
@@ -99,7 +99,7 @@ This script can do some work
             with open(path+"/README.md", "w") as f:
                 f.write(read_body)
 
-            # Create doc
+            # Create docs
             with open(path+"/docs/"+name+".md", "w") as f:
                 pass
 
