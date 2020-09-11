@@ -129,7 +129,7 @@ This script can do work
         with open(path+"/README.md", "w") as f:
             f.write(readme_body)
 
-        # Create docs
+        # create docs
         with open(path+"/docs/"+name+".md", "w") as f:
             f.write(readme_body)
 
