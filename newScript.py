@@ -5,7 +5,8 @@
 
 __author__ = "Bo DONG"
 
-import sys, os
+import sys
+import os
 import optparse
 
 
@@ -13,8 +14,8 @@ def main():
     usage = "usage: python %prog [options]"
     parser = optparse.OptionParser(usage)
     parser.add_option('-d', '--dir',
-        action="store", dest="target_dir",
-        help="target dir", default=None)
+                      action="store", dest="target_dir",
+                      help="target dir", default=None)
     options, args = parser.parse_args()
 
     print("Arguments:", args)
@@ -79,7 +80,7 @@ def main():
             f.write(header)
             f.write(body)
             f.write(footer)
-        
+
         # create context
         context_body = """
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '{}')))
@@ -129,11 +130,19 @@ This script can do work
         with open(path+"/README.md", "w") as f:
             f.write(readme_body)
 
-        # create docs
         with open(path+"/docs/"+name+".md", "w") as f:
             f.write(readme_body)
 
+        # create .gitignore
+        gitignore_body = """
+__pycache__/
+*.py[cod]
+*$py.class
+"""
+        with open(path+"/.gitignore", "w") as f:
+            f.write(gitignore_body)
+
 
 # only run the following code when this file is the main file being run
-if __name__=='__main__':
+if __name__ == '__main__':
     main()
