@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 ' a script to create new python project '
@@ -7,21 +7,26 @@ __author__ = "Bo DONG"
 
 import sys
 import os
-import optparse
+import argparse
 
 
 def main():
-    usage = "usage: python %prog [options]"
-    parser = optparse.OptionParser(usage)
-    parser.add_option('-d', '--dir',
-                      action="store", dest="target_dir",
-                      help="target dir", default=None)
-    options, args = parser.parse_args()
+    description = "This is a script."
+    usage = "python3 THIS_SCRIPT [options]"
+    parser = argparse.ArgumentParser(
+        description=description,
+        usage=usage)
+    parser.add_argument(
+        '-d', '--dir',
+        action="store",
+        help="target dir", 
+        default=None)
+    args = parser.parse_args()
 
     print("Arguments:", args)
-    print("Target dir:", options.target_dir)
+    print("Target dir:", args.dir)
 
-    path = options.target_dir
+    path = args.dir
     if os.path.isdir(path):
         print("Dir '{}' already exists. Please specify a new dir".format(path))
     else:
@@ -39,13 +44,14 @@ def main():
         # ****************
         # create files
         # ****************
-        header = """#!/usr/bin/env python
+        header = """#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 ' a script to do work '
 __author__ = "Bo DONG"
 
-import sys, os
+import sys
+import os
 """
         footer = """
 # only run the following code when this file is the main file being run
@@ -56,22 +62,27 @@ if __name__=='__main__':
 
         # create script
         body = """
-import optparse
+import argparse
 
 
 def func():
     return "Hello World!"
 
 def main():
-    usage = "usage: python %prog [options]"
-    parser = optparse.OptionParser(usage)
-    parser.add_option('-d', '--dir',
-        action="store", dest="target_dir",
-        help="target dir", default=None)
-    options, args = parser.parse_args()
+    description = "This is a script."
+    usage = "python3 THIS_SCRIPT [options]"
+    parser = argparse.ArgumentParser(
+        description=description,
+        usage=usage)
+    parser.add_argument(
+        '-d', '--dir',
+        action="store",
+        help="target dir", 
+        default=None)
+    args = parser.parse_args()
 
     print("Arguments:", args)
-    print("Target dir:", options.target_dir)
+    print("Target dir:", args.dir)
 
     print(func())
 
